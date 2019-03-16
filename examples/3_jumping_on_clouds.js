@@ -11,17 +11,21 @@ c: an array of binary integers
 function jumpingOnClouds(c) {
     
     var i = 0;
-    var dub = 0;
-    var jump = 0;
+    var jump = -1;
+    if (c.length <= 2) {
+        return 1;
+    }
     while (i < c.length) {
-        if (!(c[i + 1]) || (c[i + 1] === 0 && c[i + 2] === 0)) {
+        //!(c[i + 1]) || !(c[i + 2]) || 
+        if ((c[i + 1] === 0 && c[i + 2] === 0)) {
             i += 2;
         } else if (c[i + 1] === 1) {
             i += 2;
         } else {
             i += 1;
-        }
+        } console.log('---p----', i);
         jump += 1;
     }
+    console.log('------jump--', jump);
     return jump;
 }
