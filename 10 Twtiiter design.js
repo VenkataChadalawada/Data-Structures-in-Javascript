@@ -16,7 +16,7 @@ class Twitter{
       ramu: [[124, 2], [131, 13]] 
      } */
   
-  follows(followerId, followeeId){
+  following(followerId, followeeId){
     if(!this.follows[followerId]) {
       this.follows[followerId] = {};
     }
@@ -58,3 +58,18 @@ class Twitter{
     return [...feed];
   }
 }
+
+var t = new Twitter();
+t.postTweet('sai', 123);
+t.postTweet('ramu', 124);
+t.postTweet('sai', 125);
+t.postTweet('sai', 127);
+t.postTweet('ramu', 132);
+t.postTweet('ravi', 139);
+t.postTweet('somu', 149);
+
+t.following('sai', 'ramu');
+t.following('sai', 'somu');
+t.following('sai', 'ravi');
+t.getNewsFeed('sai');
+console.log(t);
