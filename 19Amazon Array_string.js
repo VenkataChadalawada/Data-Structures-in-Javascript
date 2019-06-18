@@ -38,7 +38,24 @@ console.log(TwoSum([0,4,3,0],0))
 ---obj--- Map { 0 => [ 0, 3 ], -4 => [ 4, 1 ], -3 => [ 3, 2 ] }
 */
 
-
-
+// 2 lengthOfLongestSubstring
+/**
+ * @param {string} s
+ * @return {number}
+ */
+var lengthOfLongestSubstring = function(s) {
+    let seen = {};
+    let longest = 0;
+    let start = 0;
+    for(var i=0;i<s.length;i++){
+        let char = s[i];
+        if(seen[char]){
+            start = Math.max(start, seen[char]);
+        }
+        longest = Math.max(longest, i-start+1);
+        seen[char] = i+1;            
+    }
+    return longest;
+};
 
 
