@@ -122,7 +122,119 @@ class BinarySearchTree{
 **** postorder - similar to pre but here first right
 
 */
+ // Travel through the walls of the BST
+ diameterOfBinaryTree(root) {
+    let result = 1;
+    dfs(root)
+    
+    function dfs(root) {
+        if(!root) {
+            return 0;
+        }
+        let l = dfs(root.left);
+        let r = dfs(root.right);
+        result = Math.max(result, l + r + 1);
+        return Math.max(l, r) + 1;
+    }
+    
+    return result - 1;
+ }
 
+ // Check if all nodes in BST are following BST rules?
+ isValidBST(root) {
+    function isValid(node, lo, up){
+      if(node === null) return true;
+      if(node.val <= lo) return false;
+      if(node.val >= up) return false;
+      return isValid(node.left, lo, node.val) && isValid(node.right, node.val, up);
+    }
+    return isValid(root, Number.NEGATIVE_INFINITY, Number.POSITIVE_INFINITY);
+}
+
+// Is left subtree same as right subtree    
+isSymmetric(root) {
+    if(root===null) return true;
+    function isMirror(p, q){
+      // console.log('--', p, q);
+      if(p===null && q===null) return true;
+      // after above line below case either p or q will be null but wont be both ever
+      if(p===null || q===null) return false;
+        // if p & q are not equal then it returns false right here
+      return (p.val===q.val) && isMirror(p.left,q.right) && isMirror(p.right,q.left);
+    }
+    return isMirror(root.left,root.right);
+}
+// Print every level as a subarray in a result array
+levelOrder(root) {
+    if(!root) return [];
+    let res = [];
+    function levelHelper(node, res, height) {
+      if(res.length<=height){
+        res.push([]);
+      }
+      res[height].push(node.val);
+      // console.log('***', res);
+      (node.left) && levelHelper(node.left, res, height+1);
+      (node.right) && levelHelper(node.right, res, height+1);
+      return res;
+    }
+    return levelHelper(root, [], 0);
+}
+
+// Similar to level order print in zig zag fashion
+zigzagLevelOrder(root) {
+    if (!root) return []; // Sanity check
+    
+    var result = [], level = [], s1 = [root], s2 = [], flag = true;
+    
+    while (s1.length > 0) {
+        var node = s1.pop(), left = node.left, right = node.right;
+
+        // Handle the current node
+        level.push(node.val);
+
+        // Get ready for the next level
+        // the key of zigzag traversal is to control the order of pushing
+        // left and right sub children
+        if (flag) {
+            if (left)  s2.push(left);
+            if (right) s2.push(right);
+        } else {
+            if (right) s2.push(right);
+            if (left)  s2.push(left);
+        }
+        
+        // We just finish traversing the current level
+        if (s1.length === 0) {
+            result.push(level);
+            level = [];
+            flag = !flag;
+            // Continue to traverse the next level
+            s1 = s2;
+            s2 = [];
+        }
+    }
+    
+    return result;
+};
+  // Traverse every sub tree and find the maximum sum we can achieve in over all tree
+maxPathSum(root) {
+    let maxPathSumNum = -Infinity;
+    
+    const maxPathSumRec = function(node){
+        if(!node){
+            return 0;
+        }
+        
+        let leftMax = Math.max(maxPathSumRec(node.left), 0);
+        let rightMax = Math.max(maxPathSumRec(node.right), 0);
+        maxPathSumNum = Math.max(maxPathSumNum, leftMax + rightMax + node.val);
+        return Math.max(leftMax, rightMax) + node.val;
+    };
+    
+    maxPathSumRec(root);
+    return maxPathSumNum;
+};
 /*
     // Depth First Search (Iterative) - 3 types => In Order, PreOrder, PostOrder
     DFSInOrder() {  // L(P)R
