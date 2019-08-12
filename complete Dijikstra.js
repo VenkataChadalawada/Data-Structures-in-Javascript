@@ -1,4 +1,110 @@
 // ADJACENCY MATRIX
+class PriorityQueue{
+  constructor(){
+    this.values = [];
+  }
+  enqueue(val, pri){
+    this.values.push({val, pri});
+    this.sortify();
+  }
+  dequeue(){
+    return this.values.shift();
+  }
+  sortify(){
+    this.values.sort((a,b) => a.pri-b.pri);
+  }
+}
+class Graph{
+  constructor(){
+    this.adjacencyMatrix = [
+      [1,1,8,1,8,9],
+      [1,1,1,1,8,1],
+      [1,8,8,1,1,1],
+      [1,1,8,1,8,8],
+      [1,1,8,1,1,8],
+      [0,1,1,1,8,8],
+    ];
+  }
+  Dijkstra(startPos, finishPos){
+    const nodes = new PriorityQueue();
+    const distances = [];
+    const previous = [];
+    let smallest, smallest_X, smallest_Y;
+    let path = [];
+    const xLength = this.adjacencyMatrix[0].length;
+    const yLength = this.adjacencyMatrix.length;
+    // preparation
+    for(let i=0; i<xLength; i++){
+      distances.push([]);
+      previous.push([]);
+      for(let j=0; j<yLength; j++){
+        distances[i].push(Infinity);
+        previous[i].push(null);
+      }
+    }
+    distances[startPos[0]][startPos[1]] = 0;
+    nodes.enqueue(startPos, 0);
+    // console.log('--p--', previous, distances, nodes);
+    
+    while(nodes.values.length){
+      smallest = nodes.dequeue().val;
+      smallest_X = smallest[0];
+      smallest_Y = smallest[1];
+      console.log('=======> ',smallest);
+      if(smallest_X === finishPos[0] && smallest_Y === finishPos[1]){
+        while(previous[smallest[0]][smallest[1]]){
+          path.push(smallest);
+          smallest = previous[smallest[0]][smallest[1]]
+        }
+        console.log('^^^^^^^^^^^^^^^^',path);
+        break;
+      }
+      
+      if(smallest || distances[smallest_X][smallest_Y]!==Infinity){
+        // console.log(smallest);
+        const XDIR = [-1,1,0,0];
+        const YDIR = [0,0,-1,1];
+        let neighborX, neighborY;
+        
+        // Handlinh neighbors
+        for(let i=0; i<XDIR.length; i++){
+            neighborX = smallest_X+XDIR[i];
+            neighborY = smallest_Y+YDIR[i];
+            
+            // Edge cases
+            if(neighborX<0 || neighborY<0 || neighborX > xLength-1 || neighborY > yLength-1){
+              // console.log('=====', neighborX, neighborY);
+              continue;
+            }
+          
+            // Block values - 8
+            if(this.adjacencyMatrix[neighborX][neighborY] === 8){
+              // console.log('---8888--', neighborX, neighborY);
+              continue;
+            }
+            // console.log('-----', neighborX, neighborY);
+              let candidate = distances[smallest_X][smallest_Y]+1;
+              if(candidate < distances[neighborX][neighborY]){
+                // console.log('----****--', [neighborX, neighborY]);
+                distances[neighborX][neighborY]=candidate;
+                nodes.enqueue([neighborX,neighborY], candidate);
+                previous[neighborX][neighborY]=smallest;
+              }
+        }
+      }
+      
+    }
+    // console.log('---Nodes-- \n', nodes);
+    // console.log('---Distances-- \n', distances);
+    // console.log('---previous-- \n', previous);
+  }
+}
+
+
+var G = new Graph();
+console.log(G);
+console.log(G.Dijkstra([5,0], [0,5]));
+
 
 
 
