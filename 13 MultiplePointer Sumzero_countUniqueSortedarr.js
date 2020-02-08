@@ -33,3 +33,31 @@ function countUniqueValues(arr){
     return i + 1;
 }
 countUniqueValues([1,2,2,5,7,7,99])
+
+// Multi Pointer Pattern - function takes in two strings and check whether the charecters in the first string form a subsequence of the charecters in the second string with out their order changing but can be discontinuous
+
+
+
+function isSubsequence(str1, str2) {
+  
+  let p1=0, p2=0; //p2 is not useful actually
+  for(let i=0; i<str2.length; i++){
+    if(str1[p1] === str2[i]){
+      p2++;
+      p1++;
+    } else {
+      p2++;
+    }
+  }
+  if(p1===str1.length) {
+    return true;
+  } else{
+  return false
+  }
+}
+
+console.log(isSubsequence('hello', 'hello world'));
+console.log(isSubsequence('sing', 'sting'));
+console.log(isSubsequence('hello', 'helli world'));
+console.log(isSubsequence('abc', 'abracadabra'));
+console.log(isSubsequence('abc', 'acb'));
