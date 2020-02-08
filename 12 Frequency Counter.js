@@ -26,3 +26,46 @@ function same(arr1, arr2){
 
 console.log(same([1,2,1], [4,4,1]));
 console.log(same([1,2,1], [4,1,1]));
+
+// 2. Anagram
+
+/*
+validAnagram('', '') //true
+validAnagram('aaz', 'zza') //true
+validAnagram('anagram', 'nagaram') //true
+validAnagram('rat', 'car') //true
+validAnagram('awesome', 'awesom') //true
+validAnagram('qwerty', 'qeywrt') //true
+validAnagram('cinema', 'iceman') //true
+validAnagram('textwissttime', 'timetwisttext') //true
+*/
+function createObj(w){
+  let obj = {};
+  for(let i of w){
+    if(!obj[i]){
+      obj[i] = 1;
+    } else {
+       obj[i]++;
+    }
+  }
+  return obj;
+}
+
+function validAnagram(w1, w2) {
+  const obj1 = createObj(w1);
+  const obj2 = createObj(w2);
+  // 1. their lengths must be same
+  if(Object.keys(obj1).length !==Object.keys(obj2).length){
+    return false;
+  }
+  // all keys in first should have all values in second 
+  for(let i in obj1){
+    if(obj1[i] !== obj2[i]){
+      return false;
+    }
+  }
+  
+  return true;
+}
+
+console.log(validAnagram('cinema', 'iceman')) // true
