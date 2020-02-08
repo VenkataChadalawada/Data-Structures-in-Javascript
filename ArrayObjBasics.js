@@ -1,13 +1,3 @@
-// Frequency COunter Pattern
-
-// write a func SAME accepts two arrays , the func should return true if every value in the array has its corresponding value squared in the second array. The frequency of values must be the same
-// TEST CASES
-same([1,2,3], [4,1,9]) //true
-same([1,2,3], [1,9]) //false
-same([1,2,1], [4,4,1]) //false (must be same frequency)
-
-
-
 // Objects
 let instructor = {
   fname: "Kelly",
