@@ -1,3 +1,14 @@
+/*
+LinkedLists
+Do not have indexes
+connected via nodes with a next pointer
+random access is not allowed
+
+Arrays
+Indexed in order!
+Insertion and deletion can be expensive
+can quickly be accessed at a specifix index
+*/
 class Node {
     constructor(val) {
         this.val = val;
