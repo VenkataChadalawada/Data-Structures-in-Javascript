@@ -85,3 +85,38 @@ function fib(num){
   if(num===1) return 1;
   return fib(num-1)+fib(num-2);
 }
+
+// common pit falls of recursion
+/*
+1) Ensure you have proper base case which stops recursion
+2) Forgetting to return or returning the wrong thing!
+3) Stack overflow
+*/
+function outer(input){
+  var outerScopedVariable = [];
+  function helper(helperInput){
+    //modfiy the outerscopped values
+    if(helperInput.length === 0){
+      return;
+    }
+    if(helperInput[0] %2!==0){
+      outerScopedVariable.push(helperInput[0])
+    }
+    helper(helperInput.slice(1)
+  }
+  helper(input)
+  return outerScopedVariable;
+}
+  
+// Pure Recursion with our a helper method
+function collectOddValues(arr){
+  let newArr = [];
+  if(arr.length === 0){
+    return newArr;
+  }
+  if(arr[0]%2!==0){
+    newArr.push(arr[0]);
+  }
+  newArr = newArr.concat(collectOddValues(arr.slice(1));
+  return newArr;
+}
