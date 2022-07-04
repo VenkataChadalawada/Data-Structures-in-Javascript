@@ -319,7 +319,12 @@ tree.insert(11);
 tree.insert(2);
 tree.insert(16);
 tree.insert(7);
+console.log('--tree--', tree);
 
 console.log(tree.bfs()); // [10,5,13,2,7,11,16]
-console.log('--tree--', tree);
+console.log(tree.dfs_InOrder());// [2,  5,  7, 10,11, 13, 16] - interestingly Inorder in BFS is sorted values in ascending
+console.log(tree.dfs_preOrder()); // [10,  5,  2, 7,13, 11, 16] - parent first then children
+console.log(tree.dfs_postOrder()); // [2,  7,  5, 11,16, 13, 10] - children first then parent
+
+
 */
