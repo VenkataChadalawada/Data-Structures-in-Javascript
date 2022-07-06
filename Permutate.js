@@ -1,3 +1,18 @@
+// approach 1 easier 
+let str = 'let';
+let permutation = (str, result) => {
+  if(str.length === 0){
+    console.log(result);
+  }
+  for(let i=0;i<str.length;i++){
+    let rest = str.slice(0,i)+str.slice(i+1);
+    permutation(rest, result+str);
+  }
+}
+permutation(str, '');
+
+
+// approach 2 
 function getPerms(str){
   function permutate(str){
     console.log('=====', str);
