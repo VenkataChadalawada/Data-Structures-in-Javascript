@@ -1,3 +1,38 @@
+const permutator = (inputArr) => {
+  let result = [];
+
+  const permute = (arr, m = []) => {
+    if (arr.length === 0) {
+      result.push(m)
+    } else {
+      for (let i = 0; i < arr.length; i++) {
+        let curr = arr.slice(); // shallow copy of arr into curr
+        let next = curr.splice(i, 1); // splice(i, 1) -> from index i, delete 1 element
+        permute(curr.slice(), m.concat(next))
+     }
+   }
+ }
+
+ permute(inputArr)
+
+ return result;
+}
+
+console.log(permutator(['a','b','c']));
+
+/*
+
+[
+  [ 'a', 'b', 'c' ],
+  [ 'a', 'c', 'b' ],
+  [ 'b', 'a', 'c' ],
+  [ 'b', 'c', 'a' ],
+  [ 'c', 'a', 'b' ],
+  [ 'c', 'b', 'a' ]
+]
+*/
+
+
 // approach 1 easier 
 let str = 'let';
 let permutation = (str, result) => {
